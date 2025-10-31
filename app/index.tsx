@@ -1,9 +1,17 @@
-import { Text, View } from 'react-native';
+import { getPokemonList } from '@/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Index() {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['pokemon-list'],
+        queryFn: () => getPokemonList(1),
+    });
+
     return (
-        <View>
-            <Text className="text-3xl text-red-500 font-bold">Pokemon App</Text>
-        </View>
+        <SafeAreaView>
+            <Text>{JSON.stringify(data)}</Text>
+        </SafeAreaView>
     );
 }
